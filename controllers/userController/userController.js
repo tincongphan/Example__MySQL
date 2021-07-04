@@ -8,6 +8,7 @@
  
 */
 const { User } = require("../../models/index")
+const bcryptjs = require('bcryptjs');
 
 // get list user
 const getListUserController = async (req, res) => {
@@ -49,9 +50,13 @@ const updateUserController = async (req, res) => {
 // create user
 const createUserController = async (req, res) => {
     const { name, email, password, age, phone, role } = req.body
+    
+    // make password security
+    const salt = bcryptjs.genSaltSync(5)
+    const hashPassword = bcryptjs.hashSync(password, salt)
     try {
 
-        const newUser = await User.create({ name, email, password, age, phone, role })
+        const newUser = await User.create({ name, email, password: hashPassword, age, phone, role })
         res.status(200).send(newUser)
 
     } catch (error) {
