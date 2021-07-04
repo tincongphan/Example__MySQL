@@ -1,13 +1,14 @@
 
 const express = require('express');
 const userRouter = express.Router()
-
+const { User } = require("../../models/index")
 const { getListUserController,
-        detailUserController,
-        updateUserController,
-        createUserController,
-        deleteUserController } = require('../../controllers/userController/userController');
-        
+  detailUserController,
+  updateUserController,
+  createUserController,
+  deleteUserController } = require('../../controllers/userController/userController');
+const { checkExistMiddleware } = require('../../middleware/userMiddleware/validationMiddleware');
+
 
 //    api get list user
 //    http://localhost:7000/api/users
@@ -16,12 +17,12 @@ userRouter.get('/', getListUserController)
 
 //    api detail user
 //    http://localhost:7000/api/users/:id
-userRouter.get("/:id", detailUserController)
+userRouter.get("/:id", checkExistMiddleware(User), detailUserController)
 
 
 //    api update user
 //    http://localhost:7000/api/users/:id
-userRouter.put("/:id", updateUserController)
+userRouter.put("/:id", checkExistMiddleware(User), updateUserController)
 
 
 //    api create user
@@ -31,6 +32,6 @@ userRouter.post("/", createUserController)
 
 //   api delete user  
 //   http://localhost:7000/api/users/:id
-userRouter.delete("/:id", deleteUserController)
+userRouter.delete("/:id", checkExistMiddleware(User), deleteUserController)
 
 module.exports = { userRouter }
