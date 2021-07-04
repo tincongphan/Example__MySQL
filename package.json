@@ -1,0 +1,30 @@
+{
+  "dependencies": {
+    "express": "^4.17.1",
+    "mysql2": "^2.2.5",
+    "nodemon": "^2.0.9",
+    "sequelize": "^6.6.4"
+  },
+  "name": "push_github_MySQL",
+  "version": "1.0.0",
+  "main": "index.js",
+  "devDependencies": {
+    "sequelize-cli": "^6.2.0"
+  },
+  "scripts": {
+    "start": "node index.js",
+    "debug": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tincongphan/Example__MySQL.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tincongphan/Example__MySQL/issues"
+  },
+  "homepage": "https://github.com/tincongphan/Example__MySQL#readme",
+  "description": ""
+}
