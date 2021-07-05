@@ -8,6 +8,7 @@ const { getListUserController,
   createUserController,
   deleteUserController } = require('../../controllers/userController/userController');
 const { checkExistMiddleware } = require('../../middleware/userMiddleware/validationMiddleware');
+const { authenticateMiddleware, authorizeMiddleware } = require('../../middleware/authMiddleware/verify_authMiddleware');
 
 
 //    api get list user
@@ -32,6 +33,6 @@ userRouter.post("/", createUserController)
 
 //   api delete user  
 //   http://localhost:7000/api/users/:id
-userRouter.delete("/:id", checkExistMiddleware(User), deleteUserController)
+userRouter.delete("/:id", authenticateMiddleware, authorizeMiddleware(["ADMIN", "MANAGER"]) , checkExistMiddleware(User), deleteUserController)
 
 module.exports = { userRouter }

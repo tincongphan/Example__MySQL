@@ -17,6 +17,7 @@ const sign_inController = async (req, res) => {
                 Token include 2 parameters: payload & secretKey.
                 Payload shouldn'd include password. Because it's not security and can veriry
                 */
+                // If isAuth === true. Mean compare password is success. Then response token for user
                 const payload = {
                     id: userSignin.id,
                     email: userSignin.email,
