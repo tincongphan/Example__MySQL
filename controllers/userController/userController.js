@@ -10,6 +10,11 @@
 const { User } = require("../../models/index")
 const bcryptjs = require('bcryptjs');
 
+// upload avatar
+const uploadAvatarController = async (req, res) => {
+    res.send("upload avatar")
+}
+
 // get list user
 const getListUserController = async (req, res) => {
     try {
@@ -37,10 +42,10 @@ const updateUserController = async (req, res) => {
     const { id } = req.params;
     const { name, email, phone, age, role } = req.body;
     try {
-        
+
         await User.update({ name, email, phone, age, role }, { where: { id } })
 
-        res.status(200).send({ name, email, phone, age, role } )
+        res.status(200).send({ name, email, phone, age, role })
     } catch (error) {
         res.status(500).send(error)
     }
@@ -50,7 +55,7 @@ const updateUserController = async (req, res) => {
 // create user
 const createUserController = async (req, res) => {
     const { name, email, password, age, phone, role } = req.body
-    
+
     // make password security
     const salt = bcryptjs.genSaltSync(5)
     const hashPassword = bcryptjs.hashSync(password, salt)
@@ -69,13 +74,13 @@ const deleteUserController = async (req, res) => {
     const { id } = req.params;
     try {
         await User.destroy({
-        where :{
-            id
-        }
-    })
-    res.status(200).send("Delete success")
+            where: {
+                id
+            }
+        })
+        res.status(200).send("Delete success")
     } catch (error) {
-        res.status(500).send(error)        
+        res.status(500).send(error)
     }
 }
 
@@ -84,5 +89,6 @@ module.exports = {
     detailUserController,
     updateUserController,
     createUserController,
-    deleteUserController
+    deleteUserController,
+    uploadAvatarController
 }

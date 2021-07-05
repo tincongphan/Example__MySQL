@@ -6,10 +6,16 @@ const { getListUserController,
   detailUserController,
   updateUserController,
   createUserController,
-  deleteUserController } = require('../../controllers/userController/userController');
+  deleteUserController,
+  uploadAvatarController } = require('../../controllers/userController/userController');
 const { checkExistMiddleware } = require('../../middleware/userMiddleware/validationMiddleware');
 const { authenticateMiddleware, authorizeMiddleware } = require('../../middleware/authMiddleware/verify_authMiddleware');
+const {  uploadSignleImageMiddleware } = require('../../middleware/upload_image/upload_imageMiddleware');
 
+//    api upload avatar
+//    http://localhost:7000/api/users/avatar
+
+userRouter.post("/avatar", authenticateMiddleware, uploadSignleImageMiddleware() ,uploadAvatarController)
 
 //    api get list user
 //    http://localhost:7000/api/users
@@ -33,6 +39,6 @@ userRouter.post("/", createUserController)
 
 //   api delete user  
 //   http://localhost:7000/api/users/:id
-userRouter.delete("/:id", authenticateMiddleware, authorizeMiddleware(["ADMIN", "MANAGER"]) , checkExistMiddleware(User), deleteUserController)
+userRouter.delete("/:id", authenticateMiddleware, authorizeMiddleware(["ADMIN", "MANAGER"]), checkExistMiddleware(User), deleteUserController)
 
 module.exports = { userRouter }
