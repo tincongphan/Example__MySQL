@@ -12,7 +12,16 @@ const bcryptjs = require('bcryptjs');
 
 // upload avatar
 const uploadAvatarController = async (req, res) => {
-    res.send("upload avatar success")
+    const { path } = req.file
+    const { id } = req.user;
+    try {
+        const userAvatar = await User.findByPk(id)
+        userAvatar.avatar = "http://localhost:7000/" + path
+        await userAvatar.save()
+        res.status(200).send("upload success")
+    } catch (error) {
+        res.status(500).send(error)
+    }
 }
 
 // get list user
