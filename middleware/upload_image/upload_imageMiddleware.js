@@ -10,7 +10,7 @@ const uploadSignleImageMiddleware = () => {
         },
         //  cấu hình tên file
         filename: function (req, file, cb) {
-            cb(null, file.originalname + "_" + Date.now())
+            cb(null, file.originalname )
         }
     })
 

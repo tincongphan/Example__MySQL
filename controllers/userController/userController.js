@@ -12,7 +12,7 @@ const bcryptjs = require('bcryptjs');
 
 // upload avatar
 const uploadAvatarController = async (req, res) => {
-    res.send("upload avatar")
+    res.send("upload avatar success")
 }
 
 // get list user
