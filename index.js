@@ -2,6 +2,19 @@ const express = require('express');
 const app = express()
 const port = 7000
 const { rootRouter } = require('./routers/rootRouter/rootRouter');
+const { graphqlSchema } = require('./graphql/schema');
+const { graphqlResolvers } = require('./graphql/resolvers');
+// settup cors
+const cors = require("cors")
+app.use(cors())
+// settup graphql
+const { graphqlHTTP } = require("express-graphql")
+app.use("/graphql", graphqlHTTP({
+    schema: graphqlSchema,
+    rootValue: graphqlResolvers,
+    graphiql: true,
+}))
+
 
 // express.json() to help server can read data json from front end. When they create a newUser in postman
 app.use(express.json())
